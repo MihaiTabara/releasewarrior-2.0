@@ -9,6 +9,9 @@ _**As releaseduty squirrels are the ones with the best context when it comes to 
 - MARs are now signed via autograph (hashes only)
 - Mergeduty tasks are now tracked in [Trello](https://trello.com/b/AyyFAEbS/mergeduty-tasks)
 
+### Added
+- in-tree support for notifications of builds starting and buglist digetst for >= 64.0b7 [bug 1492128](https://bugzilla.mozilla.org/show_bug.cgi?id=1492128)
+
 ## During 63.0 >= 2018-09-05
 ### Added
 - added 6 new mac signing servers
