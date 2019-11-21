@@ -4,6 +4,13 @@ This page best serves the people that have previously been into the releaseduty 
 
 _**As releaseduty squirrels are the ones with the best context when it comes to releases, they are the ones to edit this page and amend it accordingly. Keep in mind that changes should be in compliance with the other pieces of documentation.**_
 
+## During 71.0 >= 2019-10-14
+### Changed
+- switched to GCP scriptworkers in all gecko trees (incliding esr68)
+- after TCW of 9th Nov, switched to GCP scriptworkers in `comm` repos too, but also Github mobile projects
+- secrets are now managed in `sops`, no longer in `hiera`
+- decommissioning of the AWS infrastructure
+
 ## During 69.0 >= 2019-05-13
 ### Changed
 - mac signing now happens on the mac notarization pool.
