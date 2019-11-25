@@ -22,13 +22,11 @@ How are those repositories kept in sync? That's `MergeDuty` and is part of the `
   * [Land whatsnewpage list of locales](#land-whatsnewpage-list-of-locales)
 * On Merge day:
   * [Merge beta to release](#merge-beta-to-release)
+  * [Reply migrations are complete](#reply-to-relman-migrations-are-complete)
+* A week after Merge day, bump mozilla-central:
   * [Merge central to beta](#merge-central-to-beta)
   * [Bump mozilla-esr](#bump-esr-version)
   * [Run l10n bumper](#run-the-l10n-bumper)
-  * [Reply migrations are complete](#reply-to-relman-migrations-are-complete)
-  * [Ask for mozilla-beta Fennec Relbranch](#relbranch-in-m-b-for-Fennec)
-* A week after Merge day, bump mozilla-central:
-  * [Ask relman to do final central to beta merge](#merge-central-to-beta-one-last-time)
   * [Tag central and bump versions](#tag-central-and-bump-versions)
   * [Turn off merge instance](#turn-off-the-long-living-merge-instance)
   * [Reply to RelMan that procedure is completed](#reply-to-relman-central-bump-completed)
@@ -253,7 +251,7 @@ This is now complete:
 * beta will stay closed until next week
 ```
 
-## Release Merge Day - part II - 1 week after Merge day
+## Release Merge Day - part II - a week after Merge day
 
 **When**: Wait for go from relman to release-signoff@mozilla.com. For date, see [Release Scheduling calendar](https://calendar.google.com/calendar/embed?src=bW96aWxsYS5jb21fZGJxODRhbnI5aTh0Y25taGFiYXRzdHY1Y29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) or check with relman
 
