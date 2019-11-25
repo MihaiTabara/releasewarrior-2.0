@@ -1,6 +1,6 @@
 # MergeDuty
 
-All code changes to Firefox land in the [mozilla-central](https://hg.mozilla.org/mozilla-central) repository while the Fennec one is solely landing to [mozilla-esr68](https://hg.mozilla.org/releases/mozilla-esr68)
+All code changes to Firefox land in the [mozilla-central](https://hg.mozilla.org/mozilla-central) repository while the Fennec counterpart land to [mozilla-esr68](https://hg.mozilla.org/releases/mozilla-esr68).
 * The `nightly` releases are built from that repo twice a day.
 * DevEdition and Beta releases are built from the [beta](https://hg.mozilla.org/releases/mozilla-beta/) repository
 * Extended Support Releases follow-up from the relevant ESR repo, such as [mozilla-esr68](https://hg.mozilla.org/releases/mozilla-esr68/)
@@ -40,7 +40,7 @@ How are those repositories kept in sync? That's `MergeDuty` and is part of the `
 Historical context of this procedure:
 
 ~Originally, the `m-c` -> `m-b` was done a week after `m-b` -> `m-r`. Starting at `Firefox 57`, Release Management wanted to ship DevEdition `b1` week before the planned mozilla-beta merge day. This meant Releng had to merge both repos at the same time.~
-TODO - to rewrite the process here once 71 is out of the door.
+**TODO** - to rewrite the process here once 71 is out of the door.
 
 ## Do the prep work a week before the merge
 
@@ -198,9 +198,9 @@ Diff should be similar to [this one](https://hg.mozilla.org/releases/mozilla-esr
 
 Make sure the bug that tracks the migration has no blocking items.
 
-### Land whatsnewpage list of locales - TODO - this needs to change, as the process no longer assumes this. but apply them `he l10n drivers provide the final list of locales to receive the
-WNP on the Tuesday prior to the ship date (Dec 3), so Cocomo will deliver on
-that date, 11/26`
+### Land whatsnewpage list of locales
+~### Land whatsnewpage list of locales~
+**TODO** - this needs to change, as the process no longer assumes this, but apply them; the l10n drivers provide the final list of locales to receive the WNP on the Tuesday prior to the ship date.
 
 1. For each release, there should already be a bug flying around named `Setup WNP for users coming from < X and receiving the X release`. Find it for the current release. e.g. [Bug 1523699](https://bugzilla.mozilla.org/show_bug.cgi?id=1523699).
 We should always aim to chain this bug to our main mergeduty tracking bug. That is, block the WNP bug against the `tracking XXX migration day`. If not already, please do so. This way, it's easier to find deps and nagivate via bugs.
