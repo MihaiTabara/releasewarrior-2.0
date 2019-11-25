@@ -199,7 +199,6 @@ Diff should be similar to [this one](https://hg.mozilla.org/releases/mozilla-esr
 Make sure the bug that tracks the migration has no blocking items.
 
 ### Land whatsnewpage list of locales
-~### Land whatsnewpage list of locales~
 **TODO** - this needs to change, as the process no longer assumes this, but apply them; the l10n drivers provide the final list of locales to receive the WNP on the Tuesday prior to the ship date.
 
 1. For each release, there should already be a bug flying around named `Setup WNP for users coming from < X and receiving the X release`. Find it for the current release. e.g. [Bug 1523699](https://bugzilla.mozilla.org/show_bug.cgi?id=1523699).
@@ -216,7 +215,7 @@ Make sure to double-check they match as that's generated automatically and somet
     1. Confirm your changes with `hg out -p -r . beta`, then push with `hg push -r . beta`
 
 
-## Release Merge Day
+## Release Merge Day - part I
 
 **When**: Wait for go from relman to release-signoff@mozilla.com. Relman might want to do the migration in two steps. Read the email to understand which migration you are suppose to do, and then wait for second email. For date, see [Release Scheduling calendar](https://calendar.google.com/calendar/embed?src=bW96aWxsYS5jb21fZGJxODRhbnI5aTh0Y25taGFiYXRzdHY1Y29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) or check with relman
 
@@ -242,6 +241,21 @@ python mozharness/scripts/merge_day/gecko_migration.py \
 1. Verify changesets are visible on [hg pushlog](https://hg.mozilla.org/releases/mozilla-release/pushloghtml) and [Treeherder]( https://treeherder.mozilla.org/#/jobs?repo=mozilla-release). It may take a couple of minutes to appear.
 
 :warning: The decision task of the resulting pushlog in the `mozilla-release` might fail in the first place with a timeout. A rerun might solve the problem which can be caused by an unlucky slow instance.
+
+
+### Reply to relman migrations are complete
+
+Reply to the migration request with the template:
+
+```
+This is now complete:
+* mozilla-beta is merged to mozilla-release, new version is XX.Y
+* beta will stay closed until next week
+```
+
+## Release Merge Day - part II - 1 week after Merge day
+
+**When**: Wait for go from relman to release-signoff@mozilla.com. For date, see [Release Scheduling calendar](https://calendar.google.com/calendar/embed?src=bW96aWxsYS5jb21fZGJxODRhbnI5aTh0Y25taGFiYXRzdHY1Y29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) or check with relman
 
 ### Merge central to beta
 
@@ -274,27 +288,6 @@ lockfile -10 -r3 /builds/l10n-bumper/bumper.lock 2>/dev/null && (cd /builds/l10n
 ```
 
 It should only take a few min to run. It is safe to rerun in case of failure. It requires that the mozilla-beta merge push is visible on the hg webheads. So either wait a few min after the m-c->m-b push step or verify it's visible on [mozilla-beta](https://hg.mozilla.org/releases/mozilla-beta)
-
-### Reply to relman migrations are complete
-
-Reply to the migration request with the template:
-
-```
-This is now complete:
-* mozilla-beta is merged to mozilla-release, new version is XX.Y
-* mozilla-central is merged to mozilla-beta, new version is XX.Y
-* mozilla-central will continue to merge to mozilla-beta over the week until mozilla-central is version bumped
-* esr is now XX.Y.Z
-* beta will stay closed until next week
-```
-
-
-## Bump and tag mozilla-central - 1 week after Merge day
-
-**When**: Wait for go from relman to release-signoff@mozilla.com. For date, see [Release Scheduling calendar](https://calendar.google.com/calendar/embed?src=bW96aWxsYS5jb21fZGJxODRhbnI5aTh0Y25taGFiYXRzdHY1Y29AZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) or check with relman
-
-### Merge central to beta one last time
-Ask RelMan, (e.g. [RyanVM](https://mozillians.org/en-US/u/RyanVM/)), to do this as our automation [gecko_migrations.py](https://hg.mozilla.org/mozilla-central/file/tip/testing/mozharness/scripts/merge_day/gecko_migration.py) script will reset `mozilla-beta` version numbers which is **not** what we want.
 
 ### Tag central and bump versions
 
@@ -361,6 +354,7 @@ Reply to the migration request with the template:
 
 ```
 This is now complete:
+* mozilla-central is merged to mozilla-beta, new version is XX.Y
 * mozilla-central has been tagged and version bumped
 * mozilla-esr has been version bumped
 * newly triggered nightlies will pick the version change on cron-based schedule
