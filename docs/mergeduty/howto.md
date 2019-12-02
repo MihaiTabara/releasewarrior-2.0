@@ -25,14 +25,14 @@ How are those repositories kept in sync? That's `MergeDuty` and is part of the `
   * [Reply migrations are complete](#reply-to-relman-migrations-are-complete)
 * A week after Merge day, bump mozilla-central:
   * [Merge central to beta](#merge-central-to-beta)
-  * [Bump mozilla-esr](#bump-esr-version)
+  * [Re-open trees](#re-opening-the-trees)
   * [Run l10n bumper](#run-the-l10n-bumper)
   * [Tag central and bump versions](#tag-central-and-bump-versions)
+  * [Bump mozilla-esr](#bump-esr-version)
   * [Turn off merge instance](#turn-off-the-long-living-merge-instance)
   * [Reply to RelMan that procedure is completed](#reply-to-relman-central-bump-completed)
   * [Update wiki versions](#update-wiki-versions)
   * [Bump Nightly version in ShipIt](#bump-nightly-shipit)
-  * [Re-open trees](#re-opening-the-trees)
 
 
 Historical context of this procedure:
@@ -274,18 +274,17 @@ python mozharness/scripts/merge_day/gecko_migration.py \
 
 :warning: The decision task of the resulting pushlog in the `mozilla-beta` might fail in the first place with a timeout. A rerun might solve the problem which can be caused by an unlucky slow instance.
 
+### Re-opening the tree(s)
+
+Talk to Sherrifs and RelMan to re-open trees (at this point `beta`) so that l10n bumper can run.
+
 ### Run the l10n bumper
 
 Run `l10n-bumper` against beta:
 
-```sh
-ssh buildbot-master01.bb.releng.use1.mozilla.com
-sudo su - cltbld
-cd /builds/l10n-bumper
-lockfile -10 -r3 /builds/l10n-bumper/bumper.lock 2>/dev/null && (cd /builds/l10n-bumper && /tools/python27/bin/python2.7 mozharness/scripts/l10n_bumper.py -c l10n_bumper/mozilla-beta.py --ignore-closed-tree --build; rm -f /builds/l10n-bumper/bumper.lock)
-```
-
-It should only take a few min to run. It is safe to rerun in case of failure. It requires that the mozilla-beta merge push is visible on the hg webheads. So either wait a few min after the m-c->m-b push step or verify it's visible on [mozilla-beta](https://hg.mozilla.org/releases/mozilla-beta)
+We now have automated cron jobs in Taskcluster to perform this step for us. Trigger [this hook](https://firefox-ci-tc.services.mozilla.com/hooks/project-releng/cron-task-releases-mozilla-beta%2Fl10n-bumper) to run l10n bumper on `mozilla-beta`.
+It takes a few min to run because of the robustcheckouts, even though they are sparse. The job queries Treestatus for trees status so it will **fail** if the trees are still closed.
+It is safe to rerun in case of failure. It requires that the mozilla-beta merge push is visible on the hg webheads. So either wait a few min after the m-c->m-b push step or verify it's visible on [mozilla-beta](https://hg.mozilla.org/releases/mozilla-beta)
 
 ### Tag central and bump versions
 
@@ -340,12 +339,6 @@ python mozharness/scripts/merge_day/gecko_migration.py -c merge_day/bump_esr${ve
 1. Upon successful run, `mozilla-esr${VERSION}` should get a `commit` like [this](https://hg.mozilla.org/releases/mozilla-esr68/rev/2d43ffaa9d1adf29b71f0b7354374463c8d7b621).
 1. Verify new changesets popped on https://hg.mozilla.org/releases/mozilla-esr`$ESR_VERSION`/pushloghtml
 
-
-### Turn off the long living merge instance
-
-The machine is not configured to automatically shut down. We should manually stop the merge instance inbetween merge days (6-8 weeks apart)
-
-
 ### Reply to relman central bump completed
 
 Reply to the migration request with the template:
@@ -357,6 +350,11 @@ This is now complete:
 * mozilla-esr has been version bumped
 * newly triggered nightlies will pick the version change on cron-based schedule
 ```
+
+### Turn off the long living merge instance
+
+The machine is not configured to automatically shut down. We should manually stop the merge instance inbetween merge days (6-8 weeks apart)
+
 
 ### Update wiki versions
 
@@ -398,6 +396,3 @@ first nightly has been built and published with the new version.
 5. Merge the pull request _after_ a new nightly version has been pushed to CDNs
 
 
-### Re-opening the tree(s)
-
-This step is performed by Sherrifs and RelMan when green builds are present so you don't have to worry about anything here.
