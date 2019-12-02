@@ -170,7 +170,7 @@ You need to download a different set of mozharness because ESR68 has a different
 
 ```sh
 export version=68
-export full_version=68.3.0
+export full_version=68.4.0
 mkdir ~/merge_day_esr_${full_version}
 cd ~/merge_day_esr_${full_version}
 wget -O mozharness.zip https://hg.mozilla.org/releases/mozilla-esr${version}/archive/tip.zip/testing/mozharness/
@@ -184,7 +184,7 @@ Run the bump-esr [no-op trial run](#do-migration-no-op-trial-runs), and show the
 
 ```sh
 export version=68
-export full_version=68.3.0
+export full_version=68.4.0
 cd ~/merge_day_esr_${full_version}
 python mozharness/scripts/merge_day/gecko_migration.py -c merge_day/bump_esr${version}.py --ssh-user ffxbld-merge
 hg -R build/mozilla-esr${$version} diff  # have someone sanity check output with you
@@ -284,7 +284,7 @@ Run `l10n-bumper` against beta:
 
 We now have automated cron jobs in Taskcluster to perform this step for us. Trigger [this hook](https://firefox-ci-tc.services.mozilla.com/hooks/project-releng/cron-task-releases-mozilla-beta%2Fl10n-bumper) to run l10n bumper on `mozilla-beta`.
 It takes a few min to run because of the robustcheckouts, even though they are sparse. The job queries Treestatus for trees status so it will **fail** if the trees are still closed.
-It is safe to rerun in case of failure. It requires that the mozilla-beta merge push is visible on the hg webheads. So either wait a few min after the m-c->m-b push step or verify it's visible on [mozilla-beta](https://hg.mozilla.org/releases/mozilla-beta)
+It is safe to rerun in case of failure. It requires that the mozilla-beta merge push is visible on the hg webheads. So either wait a few min after the `m-c` => `m-b` push step or verify it's visible on [mozilla-beta](https://hg.mozilla.org/releases/mozilla-beta).
 
 ### Tag central and bump versions
 
@@ -321,7 +321,7 @@ Run the bump-esr [no-op trial run](#do-migration-no-op-trial-runs) one more time
 
 ```sh
 export version=68
-export full_version=68.3.0
+export full_version=68.4.0
 cd ~/merge_day_esr_${full_version}
 python mozharness/scripts/merge_day/gecko_migration.py -c merge_day/bump_esr${version}.py --ssh-user ffxbld-merge
 hg -R build/mozilla-esr${version} diff  # have someone sanity check output with you
