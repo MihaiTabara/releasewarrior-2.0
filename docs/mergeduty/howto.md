@@ -38,7 +38,7 @@ How are those repositories kept in sync? That's `MergeDuty` and is part of the `
 Historical context of this procedure:
 
 Originally, the `m-c` -> `m-b` was done a week after `m-b` -> `m-r`. Starting at `Firefox 57`, Release Management wanted to ship DevEdition `b1` week before the planned mozilla-beta merge day. This meant Releng had to merge both repos at the same time.
-With 71.0, we're back to the initial workaround with merging `m-b` -> `m-r` in the first week and then `m-c` -> `m-b` in the follow-up week.
+With 71.0, we're back to the initial workflow with merging `m-b` -> `m-r` in the first week and then `m-c` -> `m-b` in the follow-up week.
 
 
 ## Do the prep work a week before the merge
@@ -277,7 +277,7 @@ python mozharness/scripts/merge_day/gecko_migration.py \
 
 ### Re-opening the tree(s)
 
-Talk to Sherrifs and RelMan to re-open trees (ether `open` or `approval-only`) so that l10n bumper can run.
+kalk to Sheriffs and RelMan to re-open trees (ether `open` or `approval-only`) so that l10n bumper can run.
 
 ### Run the l10n bumper
 
