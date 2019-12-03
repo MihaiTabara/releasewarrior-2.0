@@ -277,7 +277,7 @@ python mozharness/scripts/merge_day/gecko_migration.py \
 
 ### Re-opening the tree(s)
 
-kalk to Sheriffs and RelMan to re-open trees (ether `open` or `approval-only`) so that l10n bumper can run.
+Ask Sheriffs and RelMan to re-open trees (either `open` or `approval-only`) so that l10n bumper can run.
 
 ### Run the l10n bumper
 
